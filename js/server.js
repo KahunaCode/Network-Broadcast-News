@@ -3,7 +3,7 @@ const net = require('net');
 const server = net.createServer((c) => {
   console.log('client connected');
   c.on('end', () => {
-    console.log('client diconnected');
+    console.log('client disconnected');
   });
   c.write('hello\r\n');
   c.pipe(c);
