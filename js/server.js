@@ -5,7 +5,7 @@ const server = net.createServer((c) => {
   c.on('end', () => {
     console.log('client disconnected');
   });
-  c.write('hello\r\n');
+  c.write('hello from server\r\n');
   c.pipe(c);
 });
 
