@@ -6,16 +6,13 @@ const server = net.createServer((c) => {
   console.log(c.remoteAddress+' '+c.remotePort+' now connected');
 
   client_list.push(c);
-  console.log("client list is :" + client_list);
 
   c.on('data', function(data) {
-      //c.write(data);
+      process.stdout.write(data);
       client_list.forEach(function(client){
-        process.stdout.write(data);
         if (client === c) return;
         client.write(data);
       });
-      //console.log("data is "+ data);
     });
 
   c.on('end', () => {
@@ -26,13 +23,11 @@ const server = net.createServer((c) => {
   });
 
   c.write('Welcome to JChat\r\n');
-  c.pipe(c);
 });
 
 server.on('error', (err) => {
   throw err;
 });
-
 
 server.listen(6969, '0.0.0.0', () => {
   console.log('server bound');
