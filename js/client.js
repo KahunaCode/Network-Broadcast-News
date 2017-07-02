@@ -7,8 +7,10 @@ const socket = net.connect(6969, '0.0.0.0', function(){
   socket.write("hellloooooo");
 });
 
+socket.setEncoding('utf8');
+
 socket.on('data', function(data){
-  console.log("rx'd " + data);
+  console.log("rx'd ",data);
   //socket.destroy();
 });
 
