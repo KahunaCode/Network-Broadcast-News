@@ -15,6 +15,16 @@ const server = net.createServer((c) => {
       });
     });
 
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('readable', () => {
+    var chunk = process.stdin.read();
+    if (chunk !== null) {
+      client_list.forEach(function(client){
+        client.write("ADMIN:"+' '+chunk);
+      });
+    }
+  });
+
   c.on('end', () => {
     console.log(c.remoteAddress+' '+c.remotePort+' disconnected');
     var toRemove = client_list.indexOf(c);
@@ -23,7 +33,7 @@ const server = net.createServer((c) => {
   });
 
   c.write('Welcome to JChat\r\n');
-});
+  });
 
 server.on('error', (err) => {
   throw err;
