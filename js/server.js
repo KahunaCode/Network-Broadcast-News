@@ -12,6 +12,7 @@ const server = net.createServer((c) => {
       //c.write(data);
       client_list.forEach(function(client){
         process.stdout.write(data);
+        if (client === c) return;
         client.write(data);
       });
       //console.log("data is "+ data);
@@ -19,9 +20,12 @@ const server = net.createServer((c) => {
 
   c.on('end', () => {
     console.log(c.remoteAddress+' '+c.remotePort+' disconnected');
+    var toRemove = client_list.indexOf(c);
+    client_list.splice(toRemove, 1);
+    console.log("removed connection");
   });
 
-  c.write('hello from server\r\n');
+  c.write('Welcome to JChat\r\n');
   c.pipe(c);
 });
 
