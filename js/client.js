@@ -4,7 +4,7 @@ const net = require('net');
 
 const socket = net.connect(6969, '0.0.0.0', () => {
   console.log("client connected");
-  socket.write("socket.write: hello");
+  //socket.write("socket.write: hello");
 });
 
 socket.setEncoding('utf8');
