@@ -20,7 +20,7 @@ const server = net.createServer((c) => {
           socket:c
         });
 
-        console.log(client_list);
+        //console.log(client_list);
         nameChosen = true;
       }
       //look for server commands that start with '/'
@@ -37,6 +37,7 @@ const server = net.createServer((c) => {
         //console.log(client.socket);
         if (client.socket === c) return;
         if (client.nickname){
+          console.log("nickname is", client.nickname);
           var nn = client.nickname;
           client.socket.write(nn+': '+data);
         }else{
@@ -65,7 +66,7 @@ const server = net.createServer((c) => {
     var chunk = process.stdin.read();
     if (chunk !== null) {
       client_list.forEach(function(client){
-        client.write("ADMIN:"+' '+chunk);
+        client.socket.write("ADMIN:"+' '+chunk);
       });
     }
   });
