@@ -7,6 +7,7 @@ const server = net.createServer((c) => {
 
   var nameChosen = false;
 
+  var senderNick;
   //client_list.push(c);
 
   //get data from client socket, then pass to other clients
@@ -34,12 +35,13 @@ const server = net.createServer((c) => {
 
       //console.log(data);
       client_list.forEach(function(client){
-        //console.log(client.socket);
-        if (client.socket === c) return;
+        if (client.socket === c) {
+          senderNick = client.nickname;
+          console.log("sender nickname is", senderNick);
+
+        }
         if (client.nickname){
-          console.log("nickname is", client.nickname);
-          var nn = client.nickname;
-          client.socket.write(nn+': '+data);
+          client.socket.write(senderNick+': '+data);
         }else{
           client.socket.write(data);
         }
